@@ -1,0 +1,36 @@
+{
+  "name": "support-ticket-system",
+  "version": "1.0.0",
+  "description": "A support ticket system using Express.js, MongoDB, and Socket.IO.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "build-css": "tailwindcss -i ./public/css/style.css -o ./public/css/output.css --watch",
+    "build-css-prod": "tailwindcss -i ./public/css/style.css -o ./public/css/output.css --minify"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-rate-limit": "^8.0.1",
+    "groq-sdk": "^0.30.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.0.0",
+    "socket.io": "^4.7.0",
+    "tavily": "^1.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "nodemon": "^2.0.4",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.15"
+  },
+  "author": "",
+  "license": "ISC"
+}
