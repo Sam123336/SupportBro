@@ -31,8 +31,10 @@ app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
 
 // CORS configuration for React frontend
+const corsOrigins = process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : ['http://localhost:3000', 'http://localhost:5000'];
+
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5000'],
+    origin: corsOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -99,7 +101,7 @@ const server = http.createServer(app);
 // Socket.IO setup with CORS for React
 const io = socketIo(server, {
     cors: {
-        origin: ['http://localhost:3000', 'http://localhost:5000'],
+        origin: corsOrigins,
         methods: ['GET', 'POST'],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
