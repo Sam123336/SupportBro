@@ -25,11 +25,10 @@
     },
     {
       "src": "/(.*)",
-      "dest": "support-frontend/build/index.html"
+      "dest": "/index.html"
     }
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "outputDirectory": "support-frontend/build"
+  }
 }
