@@ -31,10 +31,5 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "functions": {
-    "support-ticket-system/src/server.js": {
-      "maxDuration": 30
-    }
-  },
   "outputDirectory": "support-frontend/build"
 }
