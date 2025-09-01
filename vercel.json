@@ -6,8 +6,7 @@
       "src": "support-frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build",
-        "buildCommand": "npm run build"
+        "distDir": "build"
       }
     },
     {
@@ -26,17 +25,13 @@
     },
     {
       "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
-      "dest": "/support-frontend/build/$1"
+      "dest": "/support-frontend/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/support-frontend/build/index.html"
+      "dest": "/support-frontend/index.html"
     }
   ],
-  "outputDirectory": "support-frontend/build",
-  "framework": "create-react-app",
-  "installCommand": "cd support-frontend && npm install && cd ../support-ticket-system && npm install",
-  "buildCommand": "cd support-frontend && npm run build",
   "env": {
     "NODE_ENV": "production"
   },
