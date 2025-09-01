@@ -37,7 +37,20 @@ router.post('/message', aiRateLimit, auth, async (req, res) => {
             return res.status(400).json({ error: 'Message too long. Maximum 2000 characters allowed' });
         }
 
-        const ticket = await Ticket.findById(ticketId);
+        const ticket = await Ticket.findById(ticketId)
+            .populate({
+                path: 'client',
+                populate: {
+                    path: 'user'
+                }
+            })
+            .populate({
+                path: 'assignedTo',
+                populate: {
+                    path: 'user'
+                }
+            });
+
         if (!ticket) {
             return res.status(404).json({ error: 'Ticket not found' });
         }
@@ -45,10 +58,19 @@ router.post('/message', aiRateLimit, auth, async (req, res) => {
         const userId = req.user._id.toString();
         const userRole = req.user.role;
         
-        if (userRole === 'client' && ticket.client.toString() !== userId) {
-            return res.status(403).json({ error: 'Access denied. You can only access your own tickets' });
-        } else if (userRole === 'engineer' && ticket.assignedTo && ticket.assignedTo.toString() !== userId) {
-            return res.status(403).json({ error: 'Access denied. You can only access tickets assigned to you' });
+        // Check permissions based on user role
+        if (userRole === 'client') {
+            // For clients, check if the ticket belongs to them
+            if (!ticket.client || !ticket.client.user || ticket.client.user._id.toString() !== userId) {
+                return res.status(403).json({ error: 'Access denied. You can only access your own tickets' });
+            }
+        } else if (userRole === 'engineer') {
+            // For engineers, check if the ticket is assigned to them
+            if (!ticket.assignedTo || !ticket.assignedTo.user || ticket.assignedTo.user._id.toString() !== userId) {
+                return res.status(403).json({ error: 'Access denied. You can only access tickets assigned to you' });
+            }
+        } else {
+            return res.status(403).json({ error: 'Access denied. Invalid user role' });
         }
 
         const aiResponse = await sendMessageToAI(message, ticket, enableWebSearch);
