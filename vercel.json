@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "support-ticket-system",
+  "name": "support-frontend",
   "builds": [
     {
       "src": "support-frontend/package.json",
@@ -8,36 +8,13 @@
       "config": {
         "distDir": "build"
       }
-    },
-    {
-      "src": "support-ticket-system/src/server.js",
-      "use": "@vercel/node"
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/support-ticket-system/src/server.js"
-    },
-    {
-      "src": "/socket.io/(.*)",
-      "dest": "/support-ticket-system/src/server.js"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
-      "dest": "/support-frontend/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/support-frontend/index.html"
-    }
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "functions": {
-    "support-ticket-system/src/server.js": {
-      "maxDuration": 30
-    }
-  }
+  "ignoreCommand": "echo Using only frontend for this deployment",
+  "installCommand": "cd support-frontend && npm install",
+  "buildCommand": "cd support-frontend && npm run build",
+  "env": { "NODE_ENV": "production" }
 }
