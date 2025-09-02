@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.js",
     "build-css": "tailwindcss -i ./public/css/style.css -o ./public/css/output.css --watch",
     "build-css-prod": "tailwindcss -i ./public/css/style.css -o ./public/css/output.css --minify",
-    "build": "npm run build"
+    "build": "npm run build-css-prod"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
